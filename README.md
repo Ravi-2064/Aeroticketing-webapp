@@ -44,4 +44,4 @@ If you find a bug, please create an [issue](https://github.com/rodrigobdz/airlin
 
 ## License
 
-[MIT](LICENSE) © [rodrigobdz](https://rodrigobdz.github.io/).
+[BIET](LICENSE) © [Ravi Verma](https://rodrigobdz.github.io/).
