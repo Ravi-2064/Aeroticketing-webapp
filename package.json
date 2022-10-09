@@ -1,0 +1,21 @@
+{
+  "name": "airline-reservation-system",
+  "version": "1.0.0",
+  "description": "Airline reservation system using microservices",
+  "main": "app.js",
+  "repository": "https://github.com/rodrigobdz/airline-reservation-system.git",
+  "author": "Rodrigo Bermudez Schettino <rodrigobermudezschettino@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "install-all": "yarn install-gateway && yarn install-flights",
+    "test": "yarn --cwd 'microservices/flights' test",
+    "start": "yarn start-gateway & yarn start-flights",
+    "start-gateway": "nodemon api-gateway/src/app.js",
+    "start-flights": "nodemon microservices/flights/src/app.js",
+    "install-gateway": "yarn --cwd 'api-gateway' install",
+    "install-flights": "yarn --cwd 'microservices/flights' install"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  }
+}
