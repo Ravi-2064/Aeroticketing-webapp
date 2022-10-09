@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Airline reservation system using microservices",
   "main": "app.js",
-  "repository": "https://github.com/rodrigobdz/airline-reservation-system.git",
-  "author": "Rodrigo Bermudez Schettino <rodrigobermudezschettino@gmail.com>",
-  "license": "MIT",
+  "repository": "https://github.com/Ravi-2064/flight-booking-web-app",
+  "author": "Ravi Verma <rverma926495@gmail.com>",
+  "license": "BIET",
   "scripts": {
     "install-all": "yarn install-gateway && yarn install-flights",
     "test": "yarn --cwd 'microservices/flights' test",
