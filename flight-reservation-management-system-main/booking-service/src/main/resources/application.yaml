@@ -1,0 +1,79 @@
+server:
+  port: 8082
+
+spring:
+  sleuth:
+    sampler:
+      probability: 1
+  zipkin:
+    base-url: http://zipkin:9411/
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: frms_booking_db
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+  kafka:
+    notification:
+      topic: notification-topic
+    booking:
+      topic: booking-topic
+    producer:
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+management:
+  tracing:
+    sampling:
+      probability: 1
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+  endpoint:
+    health:
+      show-details: always
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 3
+      #      slidingWindowType: TIME_BASED
+      minimumNumberOfCalls: 5
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10
+  instances:
+    USER-SERVICE:
+      baseConfig: default
+    FLIGHT-SERVICE:
+      baseConfig: default
+    PAYMENT-SERVICE:
+      baseConfig: default
+
+resilience4j.ratelimiter:
+  instances:
+    backendA:
+      limitForPeriod: 2
+      limitRefreshPeriod: 1s
+      timeoutDuration: 0
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 100
+    backendB:
+      limitForPeriod: 6
+      limitRefreshPeriod: 500ms
+      timeoutDuration: 3s

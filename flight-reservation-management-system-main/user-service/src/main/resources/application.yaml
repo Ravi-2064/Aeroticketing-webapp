@@ -1,0 +1,48 @@
+spring:
+#  sleuth:
+#    sampler:
+#      probability: 1
+#
+#  zipkin:
+#    base-url: http://zipkin:9411/
+
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: frms_user_db
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  kafka:
+    user:
+      topic: user-topic
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+management:
+  tracing:
+    sampling:
+      probability: 1
+  endpoints:
+    web:
+      exposure:
+        include:
+          - 'prometheus'
+  endpoint:
+    health:
+      show-details: always
+
+app:
+  jwt:
+    secret: 5367566B59703373367639792F423F4528482B4D6251655468576D5A71347437
+    expiration-in-ms: 604800000 # 7 days
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+

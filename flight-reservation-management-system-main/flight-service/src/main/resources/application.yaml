@@ -1,0 +1,65 @@
+server:
+  port: 8081
+
+spring:
+  sleuth:
+    sampler:
+      probability: 1
+
+  zipkin:
+    base-url: http://zipkin:9411/
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/frms_flight_db
+    username: postgres
+    password: postgres
+  jpa:
+#    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        batch_versioned_data: true
+  data:
+    redis:
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+#  sql:
+#    init:
+#      mode: always
+
+  kafka:
+    notification:
+      topic: notification-topic
+    producer:
+      bootstrap-servers: localhost:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.trusted.packages: "*"
+    consumer:
+      bootstrap-servers: localhost:29092
+      group-id: flight-service-group
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+management:
+  tracing:
+    sampling:
+      probability: 1
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+redis:
+  host: localhost
+  port: 6379
+  time-to-leave: 3600000
+
