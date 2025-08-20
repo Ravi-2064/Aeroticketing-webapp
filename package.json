@@ -9,6 +9,7 @@
   "scripts": {
     "install-all": "yarn install-gateway && yarn install-flights",
     "test": "yarn --cwd 'microservices/flights' test",
+    "build": "echo 'Building microservices...' && yarn install-all",
     "start": "yarn start-gateway & yarn start-flights",
     "start-gateway": "nodemon microservices/api-gateway/src/app.js",
     "start-flights": "nodemon microservices/flights/src/app.js",
